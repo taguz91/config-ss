@@ -1,0 +1,10 @@
+## YAML Template.
+---
+zuul:
+    routes:
+        google:
+            path: /google/**
+            url: https://www.google.com/
+        prueba:
+            path: /prueba/**
+            url: http://localhost:1515/
