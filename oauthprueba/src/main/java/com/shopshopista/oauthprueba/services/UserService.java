@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
         UsuarioP u = repo.findByUsername(string);
         // Roles
         List<GrantedAuthority> a = new ArrayList<>();
-        a.add(new SimpleGrantedAuthority("ADMIN"));
+        a.add(new SimpleGrantedAuthority("USER"));
         
         UserDetails ud = new User(
                 u.getUsername(), 
