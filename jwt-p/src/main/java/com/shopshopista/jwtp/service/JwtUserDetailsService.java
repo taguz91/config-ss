@@ -1,10 +1,14 @@
 package com.shopshopista.jwtp.service;
 
+import com.shopshopista.jwtp.model.user.Usuario;
+import com.shopshopista.jwtp.repository.IUsuarioREPO;
 import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,8 +18,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    private IUsuarioREPO userRepo;
+
+    @Autowired
+    private PasswordEncoder bCryptEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Usuario: javainuse 
+        // Password: password
+        /*
         if ("javainuse".equals(username)) {
             return new User(
                     "javainuse",
@@ -27,7 +40,31 @@ public class JwtUserDetailsService implements UserDetailsService {
                     "Usuario no encontrao con el nombre: "
                     + username
             );
+        }*/
+
+        Usuario user = userRepo.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(
+                    "Usuario no encontrao con el nombre: "
+                    + username
+            );
         }
+        return new User(
+                user.getUsername(),
+                user.getPassword(),
+                new ArrayList<>()
+        );
+    }
+
+    public Usuario save(Usuario user) {
+        System.out.println("Id: " + user.getId());
+        System.out.println("Usuario: " + user.getUsername());
+        System.out.println("Password: " + user.getPassword());
+        user.setPassword(
+                bCryptEncoder.encode(user.getPassword())
+        );
+
+        return userRepo.save(user);
     }
 
 }

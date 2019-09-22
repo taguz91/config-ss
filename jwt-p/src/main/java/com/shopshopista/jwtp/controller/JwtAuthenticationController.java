@@ -3,7 +3,9 @@ package com.shopshopista.jwtp.controller;
 import com.shopshopista.jwtp.config.JwtTokenUtil;
 import com.shopshopista.jwtp.model.JwtRequest;
 import com.shopshopista.jwtp.model.JwtResponse;
+import com.shopshopista.jwtp.model.user.Usuario;
 import com.shopshopista.jwtp.service.JwtUserDetailsService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +48,11 @@ public class JwtAuthenticationController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @RequestMapping(value = "/registrar", method = RequestMethod.POST)
+    public ResponseEntity<?> guardarUsuario(@Valid @RequestBody Usuario user) throws Exception {
+        return ResponseEntity.ok(userDetailService.save(user));
     }
 
     private void authenticate(String username, String password) throws Exception {

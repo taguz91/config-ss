@@ -24,7 +24,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     ) throws IOException, ServletException {
         hsr1.sendError(
                 HttpServletResponse.SC_UNAUTHORIZED, 
-                "Unauthorized"
+                "No tiene permiso para este URL"
         );
         
     }
