@@ -55,8 +55,7 @@ public class Ciudad {
 }
 
 /*
-INSERT INTO public.ciudad(
-            )
+INSERT INTO public.ciudad(id_ciudad, ciudad_nombre)
     VALUES (1, 'Bamako'),
     (2, 'Nonkon'),
     (3, 'Houston'),

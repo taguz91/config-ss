@@ -21,13 +21,6 @@ public class GenericServiceImpl implements GenericService {
     
     @Autowired
     private CiudadREPO ciudadRepo;
-    
-    
-
-    @Override
-    public Usuario buscarPorNombre(String username) {
-        return userRepo.findByUsername(username);
-    }
 
     @Override
     public List<Usuario> buscarTodosUsers() {
@@ -37,6 +30,11 @@ public class GenericServiceImpl implements GenericService {
     @Override
     public List<Ciudad> buscarTodasCiudades() {
         return (List<Ciudad>)ciudadRepo.findAll();
+    }
+
+    @Override
+    public Usuario findByUsername(String username) {
+        return userRepo.findByUsername(username);
     }
     
     

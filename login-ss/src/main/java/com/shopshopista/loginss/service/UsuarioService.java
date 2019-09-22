@@ -1,47 +1,44 @@
-package com.shopshopista.loginss.service.impl;
+package com.shopshopista.loginss.service;
 
 import com.shopshopista.loginss.models.Usuario;
 import com.shopshopista.loginss.repository.UserREPO;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
- * @author gus
+ * @author Johnny
  */
-//@Component
-public class UserService implements UserDetailsService {
+@Service("UsuarioService")
+public class UsuarioService implements UserDetailsService {
     
     @Autowired
-    private UserREPO userRepo;
+    @Qualifier("UserRepo")
+    private UserREPO repo; 
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Usuario u =  userRepo.findByUsername(name);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario u = repo.findByUsername(username);
         
-        if(u == null){
-            throw new UsernameNotFoundException(String.format("No existe el usuario: %s", name));
-        }
-        
+        // Todos los permisos 
         List<GrantedAuthority> a = new ArrayList<>();
         u.getRoles().forEach(r -> {
             a.add(new SimpleGrantedAuthority(r.getRol().getRol_nombre()));
         });
         
-        UserDetails ud = new org.springframework.security.core.userdetails.User(
-                u.getUsername(), 
-                u.getPass(), 
+        return new User(
+                u.getUsername(),
+                u.getPass(),
                 a
         );
-        
-        return ud;
     }
-    
 }

@@ -3,6 +3,7 @@ package com.shopshopista.loginss.service;
 import com.shopshopista.loginss.models.Ciudad;
 import com.shopshopista.loginss.models.Usuario;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface GenericService {
     
-    Usuario buscarPorNombre(String username);
+    Usuario findByUsername(String username);
     
     List<Usuario> buscarTodosUsers();
     
