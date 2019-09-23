@@ -49,6 +49,12 @@ public class JwtUserDetailsService implements UserDetailsService {
                     + username
             );
         }
+        
+        System.out.println("Numero de roles: " + user.getRoles().size());
+        user.getRoles().forEach(r -> {
+            System.out.println("ROL: " + r.getRol().getRol_nombre());
+        });
+
         return new User(
                 user.getUsername(),
                 user.getPassword(),
