@@ -37,6 +37,7 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService userDetailService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authRequest) throws Exception {
         authenticate(
                 authRequest.getUsername(),
