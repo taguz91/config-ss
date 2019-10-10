@@ -1,6 +1,7 @@
 package com.shopshopista.jwtp.model.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "rol")
-public class Rol {
+public class Rol implements Serializable {
 
     @Id
     @Column(name = "id_rol")
@@ -33,7 +34,6 @@ public class Rol {
     @JsonManagedReference(value = "rol_user")
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
     private List<UsuarioRol> usuarios;
-
 
     public int getId_rol() {
         return id_rol;
