@@ -1,5 +1,10 @@
 ## YAML Template.
 ---
+eureka:
+    client:
+        register-with-eureka: false
+        serviceUrl:
+            defaultZone: http://localhost:1313/eureka/
 zuul:
     routes:
         google:
