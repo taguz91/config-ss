@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -50,10 +50,17 @@ export class LoginService {
 
   testHttp() {
     return this.httpCliente
-    .get('http://localhost:6565/hello')
-    .subscribe(res => {
-      console.log(res);
-    });
+    .get('http://localhost:6565/saluda', {
+      headers: {'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhdWF1IiwiZXhwIjoxNTcwNzY5ODg2LCJpYXQiOjE1NzA3NTE4ODZ9.zBDKkJTK4mJTTVhCLcZ3OK97w8I51Iz43of6CHbdvnBqPCcGeY46pvA-0_RG4t33EHPtsQIITXRa8kVe-D4Ojg'}
+    })
+    .pipe(
+      map(
+        res => {
+          console.log(res);
+        }
+      )
+    )
+    .subscribe();
   }
 
 

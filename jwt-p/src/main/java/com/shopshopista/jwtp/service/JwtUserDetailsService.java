@@ -45,15 +45,15 @@ public class JwtUserDetailsService implements UserDetailsService {
         Usuario user = userRepo.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(
-                    "Usuario no encontrao con el nombre: "
+                    "Usuario no encontrao: "
                     + username
             );
         }
         
-        System.out.println("Numero de roles: " + user.getRoles().size());
+        /*System.out.println("Numero de roles: " + user.getRoles().size());
         user.getRoles().forEach(r -> {
             System.out.println("ROL: " + r.getRol().getRol_nombre());
-        });
+        });*/
 
         return new User(
                 user.getUsername(),
@@ -63,9 +63,6 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public Usuario save(Usuario user) {
-        System.out.println("Id: " + user.getId());
-        System.out.println("Usuario: " + user.getUsername());
-        System.out.println("Password: " + user.getPassword());
         user.setPassword(
                 bCryptEncoder.encode(user.getPassword())
         );
